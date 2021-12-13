@@ -1,8 +1,8 @@
 const express = require("express")
 const Blog = require('../models/blog')
-const apiRouter = express.Router();
+const blogsRouter = express.Router();
 
-apiRouter.get('/blogs', (request, response) => {
+blogsRouter.get('/', (request, response) => {
   Blog
     .find({})
     .then(blogs => {
@@ -10,7 +10,7 @@ apiRouter.get('/blogs', (request, response) => {
     })
 })
 
-apiRouter.post('/blogs', (request, response) => {
+blogsRouter.post('/', (request, response) => {
   if (!request.body.title || !request.body.url) {
     response.status(400).send()
     return;
@@ -27,7 +27,7 @@ apiRouter.post('/blogs', (request, response) => {
     })
 })
 
-apiRouter.delete("/blogs", async (request, response) => {
+blogsRouter.delete("/", async (request, response) => {
   try {
     const { title } = request.body
     await Blog.deleteOne({ title: title })
@@ -37,7 +37,7 @@ apiRouter.delete("/blogs", async (request, response) => {
   }
 })
 
-apiRouter.put("/blogs", async (request, response) => {
+blogsRouter.put("/", async (request, response) => {
   try {
     const { title } = request.body
     await Blog.updateOne({ title: title }, request.body)
@@ -47,4 +47,4 @@ apiRouter.put("/blogs", async (request, response) => {
   }
 })
 
-module.exports = apiRouter
+module.exports = blogsRouter
