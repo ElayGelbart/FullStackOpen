@@ -1,9 +1,10 @@
 const express = require("express")
 const Blog = require('../models/blog')
 const jwt = require("jsonwebtoken")
+const tokenExtractor = require("../middleware/tokenExtractor")
 const blogsRouter = express.Router();
 const JWTSECRET = "shhhhh"
-
+blogsRouter.use(tokenExtractor)
 blogsRouter.get('/', (request, response) => {
   Blog
     .find({})
@@ -31,12 +32,7 @@ blogsRouter.post('/', (request, response) => {
 
 blogsRouter.post('/auth', (request, response) => {
   try {
-    const { authorization } = request.headers;
-    if (!authorization) {
-      throw authorization;
-    }
-    const UserJWT = authorization.split(" ")[1];
-    const cookieUserObj = jwt.verify(UserJWT, JWTSECRET);
+    const cookieUserObj = jwt.verify(request.token, JWTSECRET);
     if (typeof cookieUserObj === "string") {
       throw cookieUserObj;
     }
