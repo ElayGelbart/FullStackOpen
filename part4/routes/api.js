@@ -20,4 +20,4 @@ apiRouter.post('/blogs', (request, response) => {
     })
 })
 
-export default apiRouter
+module.exports = apiRouter

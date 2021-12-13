@@ -1,6 +1,8 @@
-const listHelper = require('../utils/list_helper')
-
-const mockBlogs = [
+const app = require("../index")
+const request = require("supertest")
+const mongoose = require("mongoose")
+const Blog = require("../models/blog")
+const blogs = [
   {
     _id: "5a422a851b54a676234d17f7",
     title: "React patterns",
@@ -50,31 +52,18 @@ const mockBlogs = [
     __v: 0
   }
 ]
-test('dummy returns one', () => {
-  const blogs = []
-  const result = listHelper.dummy(blogs)
-  expect(result).toBe(1)
+beforeEach(async () => {
+  await Blog.deleteMany({})
+  await Blog.insertMany(blogs)
 })
 
-describe('blogs Tests', () => {
+afterAll(async () => {
+  await mongoose.connection.close()
+})
 
-  test('should get all likes from blogs array', () => {
-    const likesFromBlogs = listHelper.totalLikes(mockBlogs);
-    expect(likesFromBlogs).toBe(36)
-  });
-
-  test('should get the most liked blog', () => {
-    const mostLikedBlog = listHelper.favoriteBlog(mockBlogs)
-    expect(mostLikedBlog).toEqual(mockBlogs[2])
-  });
-
-  test('should get most Populare Aothuor', () => {
-    const MostLikedAuthor = listHelper.mostBlogs(mockBlogs)
-    expect(MostLikedAuthor).toEqual({ "author": "Robert C. Martin", "blogs": 3 })
-  });
-
-  test('should get most liked author', () => {
-    const MostLikedAuthor = listHelper.mostLikes(mockBlogs)
-    expect(MostLikedAuthor).toEqual({ "author": "Edsger W. Dijkstra", "likes": 17 })
+describe('API TEST', () => {
+  test('should get all blogs', async () => {
+    const response = await request(app).get("/api/blogs")
+    expect(response.body).toHaveLength(blogs.length)
   });
 });
