@@ -65,6 +65,23 @@ blogsRouter.delete("/", async (request, response) => {
     response.status(300).send()
   }
 })
+blogsRouter.delete("/auth", async (request, response) => {
+  try {
+    const cookieUserObj = jwt.verify(request.token, JWTSECRET);
+    if (typeof cookieUserObj === "string") {
+      throw cookieUserObj;
+    }
+    const { title } = request.body
+    const deleteCount = await Blog.deleteOne({ title: title, author: cookieUserObj.username })
+    if (deleteCount.deleteCount !== 0) {
+      throw title
+    }
+    response.send()
+  } catch (err) {
+    response.status(400).send("invalid")
+  }
+})
+
 
 blogsRouter.put("/", async (request, response) => {
   try {

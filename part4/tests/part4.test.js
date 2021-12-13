@@ -12,6 +12,13 @@ const blogs = [
     url: "https://reactpatterns.com/",
     likes: 7,
     __v: 0
+  }, {
+    _id: "5a422a851b54a676234d18f7",
+    title: "just the test check",
+    author: "test",
+    url: "https://reactpatterns.com/",
+    likes: 7,
+    __v: 0
   },
   {
     _id: "5a422aa71b54a676234d17f8",
@@ -56,7 +63,7 @@ const blogs = [
 ]
 const mockNewBlog = {
   title: "String",
-  author: "String",
+  author: "test",
   url: "String",
   likes: 5
 }
@@ -147,10 +154,27 @@ describe('API TEST', () => {
       const response = await request(app).post("/api/blogs/auth").send(mockNewBlog)
       expect(response.statusCode).toBe(400)
     });
-    test('should not can post blog without auth', async () => {
+    test('should can post blog with auth', async () => {
       const response = await request(app).post("/api/blogs/auth")
         .set("Authorization", `Bearer ${ServerSentJWT}`).send(mockNewBlog)
       expect(response.statusCode).toBe(201)
+    });
+    test('should not can delete blog without auth', async () => {
+      const response = await request(app).delete("/api/blogs/auth").send(mockNewBlog)
+      expect(response.statusCode).toBe(400)
+    });
+    test('should delete blog with right username', async () => {
+      const response = await request(app).delete("/api/blogs/auth")
+        .set("Authorization", `Bearer ${ServerSentJWT}`).send({
+          _id: "5a422a851b54a676234d17f7",
+          title: "just the test check",
+          author: "test",
+          url: "https://reactpatterns.com/",
+          likes: 7,
+          __v: 0
+        })
+      const getResponse = await request(app).get("/api/blogs");
+      expect(getResponse.body.length).toBe(blogs.length - 1)
     });
   });
 });
