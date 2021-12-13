@@ -6,11 +6,16 @@ const usersRouter = express.Router();
 usersRouter.post("/", async (req, res) => {
   const { username, name, password } = req.body
   try {
-    if (!username || !name || !password) {
+    if (!username || username.length < 3 || !name || !password || password.length < 3) {
+      throw username
+    }
+    const findUsername = await User.find({ username: username });
+    if (findUsername.length !== 0) {
       throw username
     }
     const hashPass = crypto.createHash("sha256").update(password).digest("hex");
-    await User.insertOne({ username, name, hashPass })
+    console.log(hashPass, "throw in hete")
+    await User.insertMany({ username, name, password: hashPass })
     res.send()
   } catch (err) {
     res.status(400).send("inValid")

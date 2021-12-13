@@ -2,6 +2,7 @@ const app = require("../index")
 const request = require("supertest")
 const mongoose = require("mongoose")
 const Blog = require("../models/blog")
+const User = require("../models/user")
 const blogs = [
   {
     _id: "5a422a851b54a676234d17f7",
@@ -70,7 +71,14 @@ const mockDataUpdate = {
   url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html",
   likes: 10,
 }
+
+const mockUser = {
+  username: "test",
+  name: "test test",
+  password: "123456"
+}
 beforeEach(async () => {
+  await User.deleteMany({})
   await Blog.deleteMany({})
   await Blog.insertMany(blogs)
 })
@@ -117,5 +125,17 @@ describe('API TEST', () => {
     const getResponse = await request(app).get("/api/blogs");
     const indexOfMock = getResponse.body.find((obj) => obj.title === mockDataUpdate.title)
     expect(indexOfMock.likes).toBe(10)
+  });
+
+  describe('Mission D', () => {
+    test('should not create user with invalid', async () => {
+      const response = await request(app).post("/api/users")
+      expect(response.statusCode).toBe(400)
+    });
+    test('should not create user with invalid', async () => {
+      await request(app).post("/api/users").send(mockUser)
+      const userArray = await User.find({})
+      expect(userArray[0]["username"]).toBe("test")
+    });
   });
 });
