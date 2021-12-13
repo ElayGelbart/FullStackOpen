@@ -75,8 +75,10 @@ beforeEach(async () => {
   await Blog.insertMany(blogs)
 })
 
-afterAll(async () => {
-  await mongoose.connection.close()
+afterAll(() => {
+  mongoose.connection.close();
+  app.killServer();
+
 })
 
 describe('API TEST', () => {
