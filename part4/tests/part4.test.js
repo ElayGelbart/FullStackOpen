@@ -3,6 +3,7 @@ const request = require("supertest")
 const mongoose = require("mongoose")
 const Blog = require("../models/blog")
 const User = require("../models/user")
+let ServerSentJWT;
 const blogs = [
   {
     _id: "5a422a851b54a676234d17f7",
@@ -78,7 +79,6 @@ const mockUser = {
   password: "123456"
 }
 beforeEach(async () => {
-  await User.deleteMany({})
   await Blog.deleteMany({})
   await Blog.insertMany(blogs)
 })
@@ -129,13 +129,19 @@ describe('API TEST', () => {
 
   describe('Mission D', () => {
     test('should not create user with invalid', async () => {
-      const response = await request(app).post("/api/users")
+      const response = await request(app).post("/api/users/signup")
       expect(response.statusCode).toBe(400)
     });
     test('should not create user with invalid', async () => {
-      await request(app).post("/api/users").send(mockUser)
+      await request(app).post("/api/users/signup").send(mockUser)
       const userArray = await User.find({})
       expect(userArray[0]["username"]).toBe("test")
+
+    });
+    test('should get cookie after login', async () => {
+      const response = await request(app).post("/api/users/login").send(mockUser)
+      expect(response.headers["set-cookie"][0]).toBeDefined()
+      ServerSentJWT = response.headers["set-cookie"][0].match(/\w+\.\w+\..+?(?=;)/)[0];
     });
   });
 });
