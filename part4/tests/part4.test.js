@@ -72,4 +72,9 @@ describe('blogs Tests', () => {
     const MostLikedAuthor = listHelper.mostBlogs(mockBlogs)
     expect(MostLikedAuthor).toEqual({ "author": "Robert C. Martin", "blogs": 3 })
   });
+
+  test('should get most liked author', () => {
+    const MostLikedAuthor = listHelper.mostLikes(mockBlogs)
+    expect(MostLikedAuthor).toEqual({ "author": "Edsger W. Dijkstra", "likes": 17 })
+  });
 });

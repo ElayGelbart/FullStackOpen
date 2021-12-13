@@ -36,9 +36,27 @@ const mostBlogs = (blogs) => {
   return selectedObj
 }
 
+const mostLikes = (blogs) => {
+  const objectOfAuthor = {}
+  for (const blog of blogs) {
+    objectOfAuthor[blog.author] = (objectOfAuthor[blog.author] || 0) + blog.likes
+  }
+  selectedObj = { likes: 0 }
+  console.log(objectOfAuthor);
+  for (const likes in objectOfAuthor) {
+    if (objectOfAuthor[likes] > selectedObj.likes) {
+      selectedObj.author = likes
+      selectedObj.likes = objectOfAuthor[likes]
+    }
+
+  }
+  return selectedObj
+}
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }
