@@ -67,4 +67,8 @@ describe('API TEST', () => {
     const response = await request(app).get("/api/blogs")
     expect(response.body).toHaveLength(blogs.length)
   });
+  test('should verify blog id', async () => {
+    const response = await request(app).get("/api/blogs")
+    expect(response.body[1]._id).toBeDefined()
+  });
 });
