@@ -63,6 +63,13 @@ const mockNewBlogNoLike = {
   author: "String",
   url: "String",
 }
+
+const mockDataUpdate = {
+  title: "TDD harms architecture",
+  author: "Robert C. Martin",
+  url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html",
+  likes: 10,
+}
 beforeEach(async () => {
   await Blog.deleteMany({})
   await Blog.insertMany(blogs)
@@ -102,5 +109,11 @@ describe('API TEST', () => {
     await request(app).delete("/api/blogs").send({ title: "React patterns" })
     const getResponse = await request(app).get("/api/blogs");
     expect(getResponse.body.length).toBe(blogs.length - 1)
+  });
+  test('should update one blog with title', async () => {
+    await request(app).put("/api/blogs").send(mockDataUpdate)
+    const getResponse = await request(app).get("/api/blogs");
+    const indexOfMock = getResponse.body.find((obj) => obj.title === mockDataUpdate.title)
+    expect(indexOfMock.likes).toBe(10)
   });
 });
