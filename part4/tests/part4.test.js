@@ -67,4 +67,9 @@ describe('blogs Tests', () => {
     const mostLikedBlog = listHelper.favoriteBlog(mockBlogs)
     expect(mostLikedBlog).toEqual(mockBlogs[2])
   });
+
+  test('should get most Populare Aothuor', () => {
+    const MostLikedAuthor = listHelper.mostBlogs(mockBlogs)
+    expect(MostLikedAuthor).toEqual({ "author": "Robert C. Martin", "blogs": 3 })
+  });
 });
