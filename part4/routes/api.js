@@ -27,4 +27,14 @@ apiRouter.post('/blogs', (request, response) => {
     })
 })
 
+apiRouter.delete("/blogs", async (request, response) => {
+  try {
+    const { title } = request.body
+    await Blog.deleteOne({ title: title })
+    response.send()
+  } catch (err) {
+    response.status(300).send()
+  }
+})
+
 module.exports = apiRouter

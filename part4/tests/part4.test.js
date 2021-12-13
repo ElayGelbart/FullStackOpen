@@ -98,4 +98,9 @@ describe('API TEST', () => {
     const response = await request(app).post("/api/blogs").send({})
     expect(response.statusCode).toBe(400)
   });
+  test('should delete one blog with title', async () => {
+    await request(app).delete("/api/blogs").send({ title: "React patterns" })
+    const getResponse = await request(app).get("/api/blogs");
+    expect(getResponse.body.length).toBe(blogs.length - 1)
+  });
 });
