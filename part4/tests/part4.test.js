@@ -164,7 +164,7 @@ describe('API TEST', () => {
       expect(response.statusCode).toBe(400)
     });
     test('should delete blog with right username', async () => {
-      const response = await request(app).delete("/api/blogs/auth")
+      await request(app).delete("/api/blogs/auth")
         .set("Authorization", `Bearer ${ServerSentJWT}`).send({
           _id: "5a422a851b54a676234d17f7",
           title: "just the test check",
