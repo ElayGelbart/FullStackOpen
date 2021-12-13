@@ -11,6 +11,10 @@ apiRouter.get('/blogs', (request, response) => {
 })
 
 apiRouter.post('/blogs', (request, response) => {
+  if (!request.body.title || !request.body.url) {
+    response.status(400).send()
+    return;
+  }
   if (!request.body.likes) {
     request.body.likes = 0
   }

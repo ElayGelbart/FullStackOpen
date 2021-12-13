@@ -88,10 +88,14 @@ describe('API TEST', () => {
     expect(getResponse.body.length).toBe(blogs.length + 1)
   });
 
-  test('should post new blog', async () => {
+  test('should post new blog without like 0', async () => {
     const response = await request(app).post("/api/blogs").send(mockNewBlogNoLike)
     expect(response.statusCode).toBe(201)
     const getResponse = await request(app).get("/api/blogs");
     expect(getResponse.body[getResponse.body.length - 1].likes).toBe(0)
+  });
+  test('should post new blog without title 400', async () => {
+    const response = await request(app).post("/api/blogs").send({})
+    expect(response.statusCode).toBe(400)
   });
 });
