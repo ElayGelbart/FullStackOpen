@@ -143,5 +143,14 @@ describe('API TEST', () => {
       expect(response.headers["set-cookie"][0]).toBeDefined()
       ServerSentJWT = response.headers["set-cookie"][0].match(/\w+\.\w+\..+?(?=;)/)[0];
     });
+    test('should not can post blog without auth', async () => {
+      const response = await request(app).post("/api/blogs/auth").send(mockNewBlog)
+      expect(response.statusCode).toBe(400)
+    });
+    test('should not can post blog without auth', async () => {
+      const response = await request(app).post("/api/blogs/auth")
+        .set("Authorization", `Bearer ${ServerSentJWT}`).send(mockNewBlog)
+      expect(response.statusCode).toBe(201)
+    });
   });
 });
