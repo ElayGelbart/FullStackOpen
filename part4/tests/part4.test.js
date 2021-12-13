@@ -52,6 +52,7 @@ const blogs = [
     __v: 0
   }
 ]
+
 beforeEach(async () => {
   await Blog.deleteMany({})
   await Blog.insertMany(blogs)
