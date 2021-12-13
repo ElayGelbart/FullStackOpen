@@ -11,6 +11,9 @@ apiRouter.get('/blogs', (request, response) => {
 })
 
 apiRouter.post('/blogs', (request, response) => {
+  if (!request.body.likes) {
+    request.body.likes = 0
+  }
   const blog = new Blog(request.body)
 
   blog

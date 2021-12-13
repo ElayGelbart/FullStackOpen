@@ -58,6 +58,11 @@ const mockNewBlog = {
   url: "String",
   likes: 5
 }
+const mockNewBlogNoLike = {
+  title: "String",
+  author: "String",
+  url: "String",
+}
 beforeEach(async () => {
   await Blog.deleteMany({})
   await Blog.insertMany(blogs)
@@ -81,5 +86,12 @@ describe('API TEST', () => {
     expect(response.statusCode).toBe(201)
     const getResponse = await request(app).get("/api/blogs");
     expect(getResponse.body.length).toBe(blogs.length + 1)
+  });
+
+  test('should post new blog', async () => {
+    const response = await request(app).post("/api/blogs").send(mockNewBlogNoLike)
+    expect(response.statusCode).toBe(201)
+    const getResponse = await request(app).get("/api/blogs");
+    expect(getResponse.body[getResponse.body.length - 1].likes).toBe(0)
   });
 });
