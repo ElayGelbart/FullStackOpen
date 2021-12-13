@@ -15,7 +15,7 @@ function tokenExtractor(req, res, next) {
     req.user = cookieUserObj.username
     console.log(req.user, "username");
     next();
-    return;
+    return
   } catch (err) {
     next();
     return;
