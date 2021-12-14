@@ -90,7 +90,9 @@ beforeEach(async () => {
   await Blog.insertMany(blogs)
 })
 
-afterAll(() => {
+afterAll(async () => {
+  await Blog.deleteMany({})
+  await User.deleteMany({})
   mongoose.connection.close();
   app.killServer();
 

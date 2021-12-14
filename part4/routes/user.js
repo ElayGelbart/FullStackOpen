@@ -25,16 +25,16 @@ usersRouter.post("/signup", async (req, res) => {
 
 usersRouter.post("/login", async (req, res) => {
   const { username, password } = req.body
-
   try {
     if (!username || username.length < 3 || !password || password.length < 3) {
       throw username
     }
     console.log(username, "blogs and notes");
-    const findUsername = await User.find({ username: username });
+    const findUsername = await User.find({ userName: username });
     if (findUsername.length === 0) {
       throw username
     }
+    console.log(username, password);
     const hashPass = crypto.createHash("sha256").update(password).digest("hex");
     if (hashPass !== findUsername[0].password) {
       throw username
