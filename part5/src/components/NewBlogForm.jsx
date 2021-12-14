@@ -69,7 +69,7 @@ export default function NewBlogForm(props) {
           setExpand(true);
         }}
       >
-        Create Blog
+        Create new Blog
       </button>
     );
   }
