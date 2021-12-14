@@ -73,6 +73,7 @@ blogsRouter.delete("/auth", async (request, response) => {
     }
     const { title } = request.body
     const deleteCount = await Blog.deleteOne({ title: title, author: cookieUserObj.username })
+    console.log(deleteCount, "delete count");
     if (deleteCount.deleteCount !== 0) {
       throw title
     }

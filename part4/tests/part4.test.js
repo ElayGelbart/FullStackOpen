@@ -166,12 +166,8 @@ describe('API TEST', () => {
     test('should delete blog with right username', async () => {
       await request(app).delete("/api/blogs/auth")
         .set("Authorization", `Bearer ${ServerSentJWT}`).send({
-          _id: "5a422a851b54a676234d17f7",
           title: "just the test check",
           author: "test",
-          url: "https://reactpatterns.com/",
-          likes: 7,
-          __v: 0
         })
       const getResponse = await request(app).get("/api/blogs");
       expect(getResponse.body.length).toBe(blogs.length - 1)

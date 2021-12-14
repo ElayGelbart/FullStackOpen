@@ -30,6 +30,7 @@ usersRouter.post("/login", async (req, res) => {
     if (!username || username.length < 3 || !password || password.length < 3) {
       throw username
     }
+    console.log(username, "blogs and notes");
     const findUsername = await User.find({ username: username });
     if (findUsername.length === 0) {
       throw username
