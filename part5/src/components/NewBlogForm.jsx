@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function NewBlogForm(props) {
+  const [Expand, setExpand] = useState(false);
   const titleInput = useRef(null);
   const authorInput = useRef(null);
   const urlInput = useRef(null);
@@ -36,27 +37,40 @@ export default function NewBlogForm(props) {
       props.setNofication({ text: "cant add", color: "red" });
     }
   }
-  return (
-    <div>
-      <p>
-        Title:
-        <input ref={titleInput} placeholder="Elay" type="text" />
-      </p>
-      <p>
-        Author:
-        <input ref={authorInput} type="text" />
-      </p>
-      <p>
-        URL:
-        <input ref={urlInput} type="text" />
-      </p>
+
+  if (Expand) {
+    return (
+      <div>
+        <p>
+          Title:
+          <input ref={titleInput} placeholder="Elay" type="text" />
+        </p>
+        <p>
+          Author:
+          <input ref={authorInput} type="text" />
+        </p>
+        <p>
+          URL:
+          <input ref={urlInput} type="text" />
+        </p>
+        <button
+          onClick={() => {
+            createNewBlog();
+          }}
+        >
+          Create New Blog
+        </button>
+      </div>
+    );
+  } else {
+    return (
       <button
         onClick={() => {
-          createNewBlog();
+          setExpand(true);
         }}
       >
-        Create New Blog
+        Create Blog
       </button>
-    </div>
-  );
+    );
+  }
 }
