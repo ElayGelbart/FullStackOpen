@@ -43,17 +43,23 @@ export default function NewBlogForm(props) {
       <div>
         <p>
           Title:
-          <input ref={titleInput} placeholder="Elay" type="text" />
+          <input
+            id="titleInput"
+            ref={titleInput}
+            placeholder="Elay"
+            type="text"
+          />
         </p>
         <p>
           Author:
-          <input ref={authorInput} type="text" />
+          <input id="authorInput" ref={authorInput} type="text" />
         </p>
         <p>
           URL:
-          <input ref={urlInput} type="text" />
+          <input id="urlInput" ref={urlInput} type="text" />
         </p>
         <button
+          data-testid="Create new Blog2"
           onClick={() => {
             createNewBlog();
           }}
@@ -65,6 +71,7 @@ export default function NewBlogForm(props) {
   } else {
     return (
       <button
+        data-testid="Create new Blog"
         onClick={() => {
           setExpand(true);
         }}
