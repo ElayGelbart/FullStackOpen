@@ -33,7 +33,7 @@ const App = () => {
       </div>
     )
   } else {
-    return <LoginPage setUsername={setUsername} setNofication={setNofication} />
+    return <LoginPage setUsername={setUsername} Nofication={Nofication} setNofication={setNofication} />
   }
 }
 

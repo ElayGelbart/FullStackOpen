@@ -33,7 +33,7 @@ export default function NewBlogForm(props) {
       }
       throw response;
     } catch (err) {
-      alert("no good");
+      props.setNofication({ text: "cant add", color: "red" });
     }
   }
   return (

@@ -24,15 +24,17 @@ export default function LoginPage(props) {
         console.log(fullResponse.username);
         localStorage.setItem("Username", fullResponse.username);
         props.setUsername(fullResponse.username);
+        props.setNofication({ text: "", color: "" });
         return;
       }
       throw response;
     } catch (err) {
-      alert("no good");
+      props.setNofication({ text: "invalid all", color: "red" });
     }
   }
   return (
     <div>
+      <p style={{ color: props.Nofication.color }}>{props.Nofication.text}</p>
       <h1>Login</h1>
       <p>
         Username:
