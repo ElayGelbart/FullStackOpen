@@ -28,7 +28,7 @@ const App = () => {
         <p>{Username} Logged In <button onClick={() => { logoutUser() }}>LogOut</button></p>
         <NewBlogForm setBlogs={setBlogs} setNofication={setNofication} />
         {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} />
+          <Blog setNofication={setNofication} key={blog.id} blog={blog} />
         )}
       </div>
     )

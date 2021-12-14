@@ -94,4 +94,14 @@ blogsRouter.put("/", async (request, response) => {
   }
 })
 
+blogsRouter.put("/like", async (req, res) => {
+  try {
+    const { _id } = req.body
+    const response = await Blog.findByIdAndUpdate(_id, { $inc: { likes: 1 } })
+    res.send(response)
+  } catch (err) {
+    res.status(400).send()
+  }
+})
+
 module.exports = blogsRouter
