@@ -42,7 +42,7 @@ usersRouter.post("/login", async (req, res) => {
     const userJwt = jwt.sign({ username }, JWTSECRET, { expiresIn: "1h" })
     console.log(userJwt, "hereeeeasd")
     res.cookie("JWT", userJwt, { maxAge: 1021031 })
-    res.send()
+    res.send({ username: username })
   } catch (err) {
     res.status(400).send("inValid")
   }
