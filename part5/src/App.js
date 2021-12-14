@@ -32,7 +32,7 @@ const App = () => {
           else if (a.likes < b.likes) { return 1 }
           else { return 0 }
         }).map(blog =>
-          <Blog setNofication={setNofication} key={blog.id} blog={blog} />
+          <Blog setBlogs={setBlogs} setNofication={setNofication} key={blog.id} blog={blog} />
         )}
       </div>
     )
