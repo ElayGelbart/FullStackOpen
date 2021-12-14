@@ -27,7 +27,11 @@ const App = () => {
         <h2>blogs</h2>
         <p>{Username} Logged In <button onClick={() => { logoutUser() }}>LogOut</button></p>
         <NewBlogForm setBlogs={setBlogs} setNofication={setNofication} />
-        {blogs.map(blog =>
+        {blogs.sort((a, b) => {
+          if (a.likes > b.likes) { return -1 }
+          else if (a.likes < b.likes) { return 1 }
+          else { return 0 }
+        }).map(blog =>
           <Blog setNofication={setNofication} key={blog.id} blog={blog} />
         )}
       </div>
