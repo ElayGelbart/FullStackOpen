@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom/extend-expect'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 import Blog from "../components/Blog"
 
 describe('Blog Comp Testing', () => {
@@ -9,9 +9,10 @@ describe('Blog Comp Testing', () => {
     url: "http://test.test",
     likes: 10
   }
+  const setNofication = jest.fn()
   function generateBlog() {
     return render(
-      <Blog blog={blog} />
+      <Blog blog={blog} setNofication={setNofication} />
     )
   }
   it('should only render title and author', () => {
@@ -30,5 +31,14 @@ describe('Blog Comp Testing', () => {
     expect(Blog.container).toHaveTextContent(
       '4test' && "Tester" && 'http://test.test' && "10"
     )
+  });
+  it('should fire 2 like button', async () => {
+    const Blog = generateBlog();
+    const button = Blog.getByText("Show More")
+    fireEvent.click(button)
+    const LikeButton = Blog.getByText("Like")
+    fireEvent.click(LikeButton)
+    fireEvent.click(LikeButton)
+    await waitFor(() => { expect(setNofication.mock.calls.length).toBe(2) })
   });
 });
