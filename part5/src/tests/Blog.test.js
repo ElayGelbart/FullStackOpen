@@ -1,24 +1,34 @@
 import '@testing-library/jest-dom/extend-expect'
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import Blog from "../components/Blog"
 
 describe('Blog Comp Testing', () => {
-  it('should only render title and author', () => {
-    const blog = {
-      title: "4test",
-      author: "Tester",
-      url: "http://test.test",
-      likes: 10
-    }
-    const BlogComponent = render(
+  const blog = {
+    title: "4test",
+    author: "Tester",
+    url: "http://test.test",
+    likes: 10
+  }
+  function generateBlog() {
+    return render(
       <Blog blog={blog} />
     )
-    expect(BlogComponent.container).toHaveTextContent(
+  }
+  it('should only render title and author', () => {
+    expect(generateBlog().container).toHaveTextContent(
       '4test' && "Tester"
     )
-    expect(BlogComponent.container).not.toHaveTextContent(
+    expect(generateBlog().container).not.toHaveTextContent(
       'http://test.test' && "10"
     )
 
   })
+  it('should show likes and url if show more is clicked', () => {
+    const Blog = generateBlog();
+    const button = Blog.getByText("Show More")
+    fireEvent.click(button)
+    expect(Blog.container).toHaveTextContent(
+      '4test' && "Tester" && 'http://test.test' && "10"
+    )
+  });
 });

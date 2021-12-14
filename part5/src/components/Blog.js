@@ -72,7 +72,7 @@ const Blog = ({ blog, setNofication, setBlogs }) => {
   } else {
     return (
       <div style={blogStyle}>
-        {blog.title} {blog.author} <button onClick={() => { setFullVisibility(true) }}>Show More</button>
+        <span>{blog.title}</span> <span>{blog.author} </span><button className='showMoreBtn' onClick={() => { setFullVisibility(true) }}>Show More</button>
       </div>
     )
   }
