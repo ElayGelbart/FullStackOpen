@@ -56,7 +56,23 @@ describe('Blog app', function () {
           expect(like1value + 1).to.eq(like2value)
         })
       })
+    });
+
+    it.only('should let user delete a blog', () => {
+      cy.get(".Blogs").its("length").then((length1) => {
+        console.log(length1, "length1")
+        cy.get("#allBlogs").contains("Test in Cypress").parent().within((wow) => {
+          console.log(wow)
+          cy.get(".showMoreBtn").click()
+          cy.wait(1000)
+          cy.get(".deleteBtn").click()
+        })
+        cy.wait(2000)
+        cy.get(".Blogs").its("length").should("eq", length1 - 1)
+      })
+
 
     });
+
   })
 })

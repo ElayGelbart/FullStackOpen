@@ -60,18 +60,18 @@ const Blog = ({ blog, setNofication, setBlogs }) => {
 
   if (FullVisibility) {
     return (
-      <div style={blogStyle}>
+      <div className="Blogs" style={blogStyle}>
         <p>title: {blog.title}</p>
         <p>author: {blog.author}</p>
         <p>likes: <span className='likeCount'>{blog.likes}</span> <button className='likeBtn' onClick={() => { addLike() }}>Like</button></p>
         <p>URL: {blog.url}</p>
         <button onClick={() => { setFullVisibility(false) }}>Show Less</button>
-        <button onClick={() => { deleteBlog() }}>Delete Blog</button>
+        <button className="deleteBtn" onClick={() => { deleteBlog() }}>Delete Blog</button>
       </div>
     )
   } else {
     return (
-      <div style={blogStyle}>
+      <div className="Blogs" style={blogStyle}>
         <span>{blog.title}</span> <span>{blog.author} </span><button className='showMoreBtn' onClick={() => { setFullVisibility(true) }}>Show More</button>
       </div>
     )
