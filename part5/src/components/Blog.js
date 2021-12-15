@@ -63,7 +63,7 @@ const Blog = ({ blog, setNofication, setBlogs }) => {
       <div style={blogStyle}>
         <p>title: {blog.title}</p>
         <p>author: {blog.author}</p>
-        <p className='likeCount'>likes: {blog.likes} <button onClick={() => { addLike() }}>Like</button></p>
+        <p>likes: <span className='likeCount'>{blog.likes}</span> <button className='likeBtn' onClick={() => { addLike() }}>Like</button></p>
         <p>URL: {blog.url}</p>
         <button onClick={() => { setFullVisibility(false) }}>Show Less</button>
         <button onClick={() => { deleteBlog() }}>Delete Blog</button>

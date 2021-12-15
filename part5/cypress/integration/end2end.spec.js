@@ -46,5 +46,17 @@ describe('Blog app', function () {
       cy.get("#CreateNewBlog").click()
       cy.get("#allBlogs").contains("Test in Cypress")
     })
+
+    it('should let user like a blog', () => {
+      cy.get(".showMoreBtn:first").click()
+      cy.get(".likeCount:first").invoke('text').then(parseFloat).then((like1value) => {
+        cy.get(".likeBtn").click()
+        cy.wait(1000)
+        cy.get(".likeCount:first").invoke('text').then(parseFloat).should((like2value) => {
+          expect(like1value + 1).to.eq(like2value)
+        })
+      })
+
+    });
   })
 })
