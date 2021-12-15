@@ -59,7 +59,7 @@ export default function NewBlogForm(props) {
           <input id="urlInput" ref={urlInput} type="text" />
         </p>
         <button
-          data-testid="Create new Blog2"
+          id="CreateNewBlog"
           onClick={() => {
             createNewBlog();
           }}
@@ -71,7 +71,7 @@ export default function NewBlogForm(props) {
   } else {
     return (
       <button
-        data-testid="Create new Blog"
+        id="expoandNewForm"
         onClick={() => {
           setExpand(true);
         }}

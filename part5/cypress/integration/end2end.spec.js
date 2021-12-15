@@ -28,5 +28,23 @@ describe('Blog app', function () {
       cy.get("#SingInBtn").click()
       cy.contains('blogs').should('not.exist')
     })
+
+  })
+
+  describe('When logged in', function () {
+    beforeEach(function () {
+      cy.get("#userNameInput").type("test")
+      cy.get("#passwordInput").type("123456")
+      cy.get("#SingInBtn").click()
+    })
+
+    it('A blog can be created', function () {
+      cy.get("#expoandNewForm").click()
+      cy.get("#titleInput").type("Test in Cypress")
+      cy.get("#authorInput").type("Elay Gelbart")
+      cy.get("#urlInput").type("http://test.test")
+      cy.get("#CreateNewBlog").click()
+      cy.get("#allBlogs").contains("Test in Cypress")
+    })
   })
 })
