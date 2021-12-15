@@ -38,13 +38,24 @@ export default function LoginPage(props) {
       <h1>Login</h1>
       <p>
         Username:
-        <input ref={userNameInput} type="text" placeholder="UserName" />
+        <input
+          id="userNameInput"
+          ref={userNameInput}
+          type="text"
+          placeholder="UserName"
+        />
       </p>
       <p>
         Password:
-        <input ref={passwordInput} type="password" placeholder="******" />
+        <input
+          id="passwordInput"
+          ref={passwordInput}
+          type="password"
+          placeholder="******"
+        />
       </p>
       <button
+        id="SingInBtn"
         onClick={() => {
           sendUserToServer();
         }}
