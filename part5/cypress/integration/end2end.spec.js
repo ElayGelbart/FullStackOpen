@@ -5,8 +5,12 @@
 // check out the link below and learn how to write your first test:
 // https://on.cypress.io/writing-first-test
 
-describe('Check Test', () => {
-  it('should be true', () => {
-    expect(true).to.equal(true)
-  });
-});
+describe('Blog app', function () {
+  beforeEach(function () {
+    cy.visit('http://localhost:3000')
+  })
+
+  it('Login form is shown', function () {
+    cy.contains('Login')
+  })
+})
